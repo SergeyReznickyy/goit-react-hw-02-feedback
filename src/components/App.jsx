@@ -13,7 +13,7 @@ class App extends React.Component {
   };
 
   onClickButton = option => {
-    this.setState(state => ({ [option]: this.state[option] + 1 }));
+    this.setState(prevState => ({ [option]: prevState[option] + 1 }));
   };
 
   countTotalFeedback = () => {
@@ -27,6 +27,7 @@ class App extends React.Component {
   };
   render() {
     const { good, neutral, bad } = this.state;
+    const total = this.countTotalFeedback();
     return (
       <Container>
         <Section title="Please leave feedback">
@@ -36,12 +37,12 @@ class App extends React.Component {
           />
         </Section>
         <Section title="Statistics">
-          {this.countTotalFeedback() ? (
+          {total ? (
             <Statistics
               good={good}
               neutral={neutral}
               bad={bad}
-              total={this.countTotalFeedback()}
+              total={total}
               positivePercentage={this.countPositiveFeedbackPercentage()}
             ></Statistics>
           ) : (
